@@ -1,0 +1,13 @@
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\bin\Debug\TuringMachine.exe.config
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\bin\Debug\TuringMachine.exe
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\bin\Debug\TuringMachine.pdb
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csprojAssemblyReference.cache
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmPalindromos.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.Menu.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.Properties.Resources.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csproj.GenerateResource.cache
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.csproj.CoreCompileInputs.cache
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.exe
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.pdb
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmCopiaPatron.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmMultiplicacion.resources
