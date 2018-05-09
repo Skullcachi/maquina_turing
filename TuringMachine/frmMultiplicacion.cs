@@ -24,9 +24,18 @@ namespace TuringMachine
         private void btnIniciar_Click(object sender, EventArgs e)
         {
             lblCadena.Text = txtCadena.Text;
-            cinta = txtCadena.Text;
-            cinta = "♭" + cinta + "♭";
-            lblCadena.Text += "♭";
+            string[] cadenaSplit = txtCadena.Text.Split('x');
+            int multiplicando = cadenaSplit[0].Length;
+            int multiplicador = cadenaSplit[1].Length;
+            int cantBetas = multiplicando * multiplicador; 
+            string betas = "";
+            for (int i = 0; i < cantBetas; i++)
+            {
+                betas += '♭';
+            }
+            cinta = txtCadena.Text + '=' + betas;            
+            cinta = "♭" + cinta ;
+            lblCadena.Text = "♭"+ lblCadena.Text  + "=" + betas;
             word = cinta.ToCharArray();            
             counter = 0;
             index = 0;
@@ -34,14 +43,15 @@ namespace TuringMachine
             lblCinta.Text = "";
             lblState.Text = "Q0";
             lblSteps.Text = "0";
-            lblCinta.Text = "↓";
+            lblCinta.Text = "";
             //Se llena el label lblCinta con el caracter ♭, hasta el length de la cadena ingresada.
-            for (int i = 0; i < word.Length - 1; i++)
+            for (int i = 0; i < word.Length; i++)
             {
-                lblCinta.Text += "♭";
+                if (i == 1) lblCinta.Text += '↓';
+                else lblCinta.Text += "♭";
             }
             arrow = lblCinta.Text.ToCharArray();
-            arrow[0] = '↓';
+            arrow[0] = '♭';
             //Si el usuario no ingresa una cadena, se debe de pedir que la ingrese.
             if (txtCadena.Text.Equals(""))
             {
@@ -53,60 +63,70 @@ namespace TuringMachine
             }
         }
 
-        public void TM(char currentChar, string state)
+        public async void TM(char currentChar, string state)
         {
+            await HoldOn();
             switch (state)
             {
                 case "Q0":
                     switch (currentChar)
                     {
-                        case 'a': case 'b': case 'c':
+                        case '1':
                             stepCounter++;
+                            arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[1] = '♭';
                             counter++;
+                            word[index] = '♭';
                             index++;
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q6");
+                            break;
+                        case '♭':
+                            counter++;
+                            index++;
+                            lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q1");
+                            TM(word[index], "Q0");
                             break;
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
                     }
                     break;
+
                 case "Q1":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
+                        case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = '♭';
+                            word[index] = 'c';
                             counter++;
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q1");
-                            break;
-                        case '♭':
-                            stepCounter++;
-                            word[index] = 'i';
-                            arrow[counter] = '↓';
-                            arrow[counter + 1] = '♭';
-                            counter--;
-                            index--;
                             lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
                             TM(word[index], "Q2");
+                            break;
+
+                        case 'x': case '=':
+                        case 's':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
+                            word[index] = 's';
+                            counter--;
+                            index--;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();
+                            TM(word[index], "Q4");
                             break;
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
@@ -116,32 +136,44 @@ namespace TuringMachine
                 case "Q2":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
+                        case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter - 1] = '↓';
-                            word[index] = '♭';
-                            counter--;
-                            index--;
-                            lblCadena.Text = new string(word);
+                            arrow[counter + 1] = '↓';
+                            word[index] = '1';
+                            counter++;
+                            index++;
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();
+                            TM(word[index], "Q2");             
+                            break;
+                        case 'x': case '=':
+                        case 's':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
+                            word[index] = 's';
+                            counter++;
+                            index++;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
                             TM(word[index], "Q2");
                             break;
                         case '♭':
                             stepCounter++;
-                            word[index] = 'i';
-                            arrow[counter] = '↓';
-                            arrow[counter + 1] = '♭';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
+                            word[index] = '1';
+                            counter--;
+                            index--;
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
+                            lblSteps.Text = stepCounter.ToString();               
                             TM(word[index], "Q3");
                             break;
                         default:
@@ -152,20 +184,44 @@ namespace TuringMachine
                 case "Q3":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
+                        case '1':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
+                            word[index] = '1';
+                            counter--;
+                            index--;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();
+                            TM(word[index], "Q3");                
+                            break;
+                        case 's':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
+                            word[index] = 's';
+                            counter--;
+                            index--;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();
+                            TM(word[index], "Q3");                
+                            break;
                         case 'c':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = '♭';
+                            word[index] = 'c';
                             counter++;
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q4");
+                            TM(word[index], "Q1");
                             break;
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
@@ -175,44 +231,32 @@ namespace TuringMachine
                 case "Q4":
                     switch (currentChar)
                     {
-                        case 'a':
+                        case 'x': case '=':
+                        case 's':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = '1';
                             counter++;
+                            word[index] = 's';
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
                             TM(word[index], "Q5");
                             break;
-                        case 'b':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            word[index] = '2';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q7");
-                            break;
                         case 'c':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            word[index] = '3';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
+                            arrow[counter - 1] = '↓';
+                            counter--;
+                            word[index] = '1';
+                            index--;
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q9");
+                            TM(word[index], "Q4");
                             break;
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
@@ -222,35 +266,19 @@ namespace TuringMachine
                 case "Q5":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q5");
-                            break;
-                        case '♭':
+                        case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter - 1] = '↓';
-                            word[index] = 'a';
                             counter--;
+                            word[index] = '1';
                             index--;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q6");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q7");
                             break;
-
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
@@ -259,216 +287,186 @@ namespace TuringMachine
                 case "Q6":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter - 1] = '↓';
-                            counter--;
-                            index--;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q6");
-                            break;
                         case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = 'a';
+                            word[index] = '1';
                             counter++;
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q4");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q6");
                             break;
-
+                        case 'x': case '=':
+                        case 's':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
+                            word[index] = 's';
+                            counter++;
+                            index++;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q1");
+                            break;
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
                     }
                     break;
+
                 case "Q7":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q5");
-                            break;
-                        case '♭':
+                        case 'x':
+                        case 's':
+                        case '=':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter - 1] = '↓';
-                            word[index] = 'b';
+                            word[index] = 's';
                             counter--;
                             index--;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
+                            lblSteps.Text = stepCounter.ToString();                
                             TM(word[index], "Q8");
                             break;
-
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
                     }
                     break;
+
                 case "Q8":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
+                        case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter - 1] = '↓';
+                            word[index] = '1';
                             counter--;
                             index--;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q8");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q9");
                             break;
-                        case '2':
+
+                        case '♭':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = 'b';
                             counter++;
+                            word[index] = '♭';
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q4");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q10");
                             break;
-
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
                     }
                     break;
+
                 case "Q9":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
+                        case '1':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
+                            arrow[counter - 1] = '↓';
+                            word[index] = '1';
+                            counter--;
+                            index--;
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q10");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q9");
                             break;
                         case '♭':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter - 1] = '↓';
-                            word[index] = 'c';
-                            counter--;
-                            index--;
-                            lblCadena.Text = new string(word);
+                            arrow[counter + 1] = '↓';
+                            counter++;
+                            word[index] = '♭';
+                            index++;
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q10");
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q0");
                             break;
-
                         default:
                             MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
                             break;
                     }
                     break;
+
                 case "Q10":
                     switch (currentChar)
                     {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                        case 'i':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter - 1] = '↓';
-                            counter--;
-                            index--;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q8");
-                            break;
-                        case '3':
+                        case 'x':
+                        case '=':
+                        case 's':
                             stepCounter++;
                             arrow[counter] = '♭';
                             arrow[counter + 1] = '↓';
-                            word[index] = 'c';
                             counter++;
+                            word[index] = '♭';
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q4");
-                            break;
-
-                        default:
-                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
-                            break;
-                    }
-                    break;
-                case "Q11":
-                    switch (currentChar)
-                    {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter - 1] = '↓';
-                            counter--;
-                            index--;
                             lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
                             lblState.Text = state;
                             lblSteps.Text = stepCounter.ToString();
                             TM(word[index], "Q11");
                             break;
-                        case '♭':
+                        default:
+                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
+                            break;
+                    }
+                    break;
+
+                case "Q11":
+                    switch (currentChar)
+                    {
+                        case '1':
                             stepCounter++;
-                            word[index] = 'i';
-                            arrow[counter] = '↓';
-                            arrow[counter + 1] = '♭';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             counter++;
+                            word[index] = '♭';
                             index++;
-                            lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
                             lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
+                            lblSteps.Text = stepCounter.ToString();                
+                            TM(word[index], "Q11");
+                            break;
+                        case 'x': case '=':
+                        case 's':
+                            stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
+                            counter++;
+                            word[index] = '=';
+                            index++;
+                            lblCinta.Text = new string(arrow);
+                            lblCadena.Text = new string(word);
+                            lblState.Text = state;
+                            lblSteps.Text = stepCounter.ToString();                
                             TM(word[index], "Q12");
                             break;
                         default:
@@ -477,163 +475,19 @@ namespace TuringMachine
                     }
                     break;
                 case "Q12":
-                    switch (currentChar)
-                    {
-                        case 'a':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q13");
-                            break;
-                        case 'b':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q14");
-                            break;
-                        case 'c':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q15");
-                            break;
-                        default:
-                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
-                            break;
-                    }
-                    break;
-                case "Q13":
-                    switch (currentChar)
-                    {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q13");
-                            break;
-                        case 'i':
-                            stepCounter++;
-                            word[index] = 'a';
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q16");
-                            break;
-                        default:
-                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
-                            break;
-                    }
-                    break;
-                case "Q14":
-                    switch (currentChar)
-                    {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q14");
-                            break;
-                        case 'i':
-                            stepCounter++;
-                            word[index] = 'b';
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q16");
-                            break;
-                        default:
-                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
-                            break;
-                    }
-                    break;
-                case "Q15":
-                    switch (currentChar)
-                    {
-                        case 'a':
-                        case 'b':
-                        case 'c':
-                            stepCounter++;
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q15");
-                            break;
-                        case 'i':
-                            stepCounter++;
-                            word[index] = 'b';
-                            arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
-                            counter++;
-                            index++;
-                            lblCadena.Text = new string(word);
-                            lblCinta.Text = new string(arrow);
-                            lblState.Text = state;
-                            lblSteps.Text = stepCounter.ToString();
-                            TM(word[index], "Q16");
-                            break;
-                        default:
-                            MessageBox.Show("Warning, the string entered is not valid in this Turing Machine!");
-                            break;
-                    }
-                    break;
-                case "Q16":
                     lblCadena.Text = new string(word);
                     lblCinta.Text = new string(arrow);
                     lblState.Text = state;
                     lblSteps.Text = stepCounter.ToString();
                     MessageBox.Show("Cadena aceptada por la maquina de turing!");
                     break;
-
             }
+        }
+
+        /* Metodo para pausar la secuencia de la maquina */
+        async Task HoldOn()
+        {
+            await Task.Delay(1000);
         }
     }
 }
