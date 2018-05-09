@@ -37,6 +37,7 @@
             this.label3 = new System.Windows.Forms.Label();
             this.lblState = new System.Windows.Forms.Label();
             this.lblSteps = new System.Windows.Forms.Label();
+            this.btnRegresar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -126,11 +127,22 @@
             this.lblSteps.TabIndex = 8;
             this.lblSteps.Text = "0";
             // 
+            // btnRegresar
+            // 
+            this.btnRegresar.Location = new System.Drawing.Point(311, 348);
+            this.btnRegresar.Name = "btnRegresar";
+            this.btnRegresar.Size = new System.Drawing.Size(115, 23);
+            this.btnRegresar.TabIndex = 9;
+            this.btnRegresar.Text = "Regresar al menu";
+            this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click);
+            // 
             // frmPalindromos
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRegresar);
             this.Controls.Add(this.lblSteps);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.label3);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label lblState;
         private System.Windows.Forms.Label lblSteps;
+        private System.Windows.Forms.Button btnRegresar;
     }
 }

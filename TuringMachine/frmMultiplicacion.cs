@@ -63,6 +63,13 @@ namespace TuringMachine
             }
         }
 
+        private void btnRegresar_Click_1(object sender, EventArgs e)
+        {
+            Menu frmMenu = new Menu();
+            frmMenu.Show();
+            this.Hide();
+        }
+
         public async void TM(char currentChar, string state)
         {
             await HoldOn();
@@ -488,6 +495,13 @@ namespace TuringMachine
         async Task HoldOn()
         {
             await Task.Delay(1000);
+        }
+
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            Menu frmMenu = new Menu();
+            frmMenu.Show();
+            this.Hide();
         }
     }
 }

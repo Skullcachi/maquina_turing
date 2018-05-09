@@ -70,11 +70,11 @@ namespace TuringMachine
                     {
                         case 'a':
                             stepCounter++;
-                            counter++;
                             word[index] = '♭';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             index++;
-                            arrow[counter-1] = '♭';
-                            arrow[counter] = '↓';
+                            counter++;
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
@@ -83,11 +83,11 @@ namespace TuringMachine
                             break;
                         case 'b':
                             stepCounter++;
-                            word[index] = '♭';
+                            word[index] = '♭';                            
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             counter++;
                             index++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
@@ -97,10 +97,10 @@ namespace TuringMachine
                         case 'c':
                             stepCounter++;
                             word[index] = '♭';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             index++;
                             counter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             
@@ -131,8 +131,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter-1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -142,8 +142,8 @@ namespace TuringMachine
                             TM(word[index], "Q11");
                             break;
                         case '♭':
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             stepCounter++;
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
@@ -163,8 +163,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -176,7 +176,7 @@ namespace TuringMachine
                         case '♭':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
@@ -195,8 +195,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -208,7 +208,7 @@ namespace TuringMachine
                         case '♭':
                             stepCounter++;
                             arrow[counter] = '♭';
-                            arrow[counter + 1] = '↓';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
@@ -226,8 +226,8 @@ namespace TuringMachine
                         case 'a':
                             stepCounter++;
                             word[index] = '♭';
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             index--;
@@ -248,8 +248,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             index--;
@@ -260,10 +260,10 @@ namespace TuringMachine
                             break;
                         case '♭':
                             stepCounter++;
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             index++;
                             counter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             lblState.Text = state;
@@ -281,8 +281,8 @@ namespace TuringMachine
                         case 'b':
                             stepCounter++;
                             word[index] = '♭';
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             index--;
@@ -302,8 +302,8 @@ namespace TuringMachine
                         case 'c':
                             stepCounter++;
                             word[index] = '♭';
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             index--;
@@ -331,8 +331,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -343,8 +343,8 @@ namespace TuringMachine
                             break;
                         case '♭':
                             stepCounter++;
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             counter--;
                             index--;
                             lblCadena.Text = new string(word);
@@ -365,8 +365,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -377,8 +377,8 @@ namespace TuringMachine
                             break;
                         case '♭':
                             stepCounter++;
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             counter--;
                             index--;
                             lblCadena.Text = new string(word);
@@ -399,8 +399,8 @@ namespace TuringMachine
                         case 'b':
                         case 'c':
                             stepCounter++;
-                            arrow[counter - 1] = '♭';
-                            arrow[counter] = '↓';
+                            arrow[counter] = '♭';
+                            arrow[counter + 1] = '↓';
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);
                             counter++;
@@ -410,10 +410,10 @@ namespace TuringMachine
                             TM(word[index], "Q11");
                             break;
                         case '♭':
+                            arrow[counter] = '♭';
+                            arrow[counter - 1] = '↓';
                             counter--;
                             index--;
-                            arrow[counter + 1] = '♭';
-                            arrow[counter] = '↓';
                             stepCounter++;
                             lblCadena.Text = new string(word);
                             lblCinta.Text = new string(arrow);                            
@@ -437,6 +437,13 @@ namespace TuringMachine
         async Task HoldOn()
         {
             await Task.Delay(1000);
+        }
+
+        private void btnRegresar_Click(object sender, EventArgs e)
+        {
+            Menu frmMenu = new Menu();
+            frmMenu.Show();
+            this.Hide();
         }
     }
 }

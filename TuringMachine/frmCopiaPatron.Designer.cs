@@ -37,6 +37,7 @@
             this.btnIniciar = new System.Windows.Forms.Button();
             this.txtCadena = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.btnRegresar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblSteps
@@ -126,11 +127,22 @@
             this.label1.TabIndex = 9;
             this.label1.Text = "Ingrese una cadena:";
             // 
+            // btnRegresar
+            // 
+            this.btnRegresar.Location = new System.Drawing.Point(332, 397);
+            this.btnRegresar.Name = "btnRegresar";
+            this.btnRegresar.Size = new System.Drawing.Size(115, 23);
+            this.btnRegresar.TabIndex = 18;
+            this.btnRegresar.Text = "Regresar al menu";
+            this.btnRegresar.UseVisualStyleBackColor = true;
+            this.btnRegresar.Click += new System.EventHandler(this.btnRegresar_Click_1);
+            // 
             // frmCopiaPatron
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.btnRegresar);
             this.Controls.Add(this.lblSteps);
             this.Controls.Add(this.lblState);
             this.Controls.Add(this.label3);
@@ -158,5 +170,6 @@
         private System.Windows.Forms.Button btnIniciar;
         private System.Windows.Forms.TextBox txtCadena;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button btnRegresar;
     }
 }
