@@ -63,6 +63,18 @@
     <Compile Include="frmPalindromos.Designer.cs">
       <DependentUpon>frmPalindromos.cs</DependentUpon>
     </Compile>
+    <Compile Include="frmResta.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmResta.Designer.cs">
+      <DependentUpon>frmResta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="frmSuma.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="frmSuma.Designer.cs">
+      <DependentUpon>frmSuma.cs</DependentUpon>
+    </Compile>
     <Compile Include="Menu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -79,6 +91,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="frmPalindromos.resx">
       <DependentUpon>frmPalindromos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmResta.resx">
+      <DependentUpon>frmResta.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="frmSuma.resx">
+      <DependentUpon>frmSuma.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Menu.resx">
       <DependentUpon>Menu.cs</DependentUpon>

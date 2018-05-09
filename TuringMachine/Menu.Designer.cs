@@ -74,6 +74,7 @@
             this.btnSuma.TabIndex = 5;
             this.btnSuma.Text = "Suma";
             this.btnSuma.UseVisualStyleBackColor = true;
+            this.btnSuma.Click += new System.EventHandler(this.btnSuma_Click);
             // 
             // btnResta
             // 
@@ -83,6 +84,7 @@
             this.btnResta.TabIndex = 6;
             this.btnResta.Text = "Resta";
             this.btnResta.UseVisualStyleBackColor = true;
+            this.btnResta.Click += new System.EventHandler(this.btnResta_Click);
             // 
             // label1
             // 

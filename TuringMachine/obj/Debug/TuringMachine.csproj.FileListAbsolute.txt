@@ -11,3 +11,5 @@ C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.
 C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.pdb
 C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmCopiaPatron.resources
 C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmMultiplicacion.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmResta.resources
+C:\Users\cachi\source\repos\TuringMachine\TuringMachine\obj\Debug\TuringMachine.frmSuma.resources

@@ -37,5 +37,19 @@ namespace TuringMachine
             formCopiaPatron.Show();
             this.Hide();
         }
+
+        private void btnSuma_Click(object sender, EventArgs e)
+        {
+            frmSuma formSuma = new frmSuma();
+            formSuma.Show();
+            this.Hide();
+        }
+
+        private void btnResta_Click(object sender, EventArgs e)
+        {
+            frmResta formResta = new frmResta();
+            formResta.Show();
+            this.Hide();
+        }
     }
 }
